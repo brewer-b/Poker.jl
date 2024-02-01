@@ -1,5 +1,7 @@
 module Poker
 
-# Write your package code here.
+include("Card.jl")
+include("HandEvaluator.jl")
+include("HandIsomorphism.jl")
 
 end

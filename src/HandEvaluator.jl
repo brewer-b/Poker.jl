@@ -1,7 +1,8 @@
-module HandEvaluator
+module PokerHandEvaluator
 
 export handRanks, evaluate5c, evaluate7c
 
+using ..PokerCard
 using DataDeps
 
 register(DataDep("PokerHandRanks",
@@ -32,6 +33,8 @@ function evaluate7c(hr,c1,c2,c3,c4,c5,c6,c7)
     return p
 end
 
+evaluate7c(c1,c2,c3,c4,c5,c6,c7) = evaluate7c(handRanks,c1,c2,c3,c4,c5,c6,c7)
+
 function evaluate5c(hr,c1,c2,c3,c4,c5)
     p = hr[53 + c1 + 1]
     p = hr[p + c2 + 1]
@@ -40,5 +43,7 @@ function evaluate5c(hr,c1,c2,c3,c4,c5)
     p = hr[p + c5 + 1]
     return hr[p + 1]
 end
+
+evaluate5c(c1,c2,c3,c4,c5) = evaluate5c(handRanks,c1,c2,c3,c4,c5)
 
 end
