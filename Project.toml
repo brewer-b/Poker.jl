@@ -3,6 +3,11 @@ uuid = "612fdc82-1377-446a-a693-86b197cc4df5"
 authors = ["Brian Brewer <bbrewer.email@gmail.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+OMPEval_jll = "cd065cc9-4ba2-5ee8-9ac0-d405a4942aee"
+PokerIsomorphism_jll = "133beed6-7c83-59bf-b8b3-f5e6e5f3f679"
+
 [compat]
 julia = "1"
 
