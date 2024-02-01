@@ -1,19 +1,44 @@
 module HandEvaluator
 
-export HandIndexer, size, indexLast, unindex
+export handRanks, evaluate5c, evaluate7c
 
-using Libdl
+using DataDeps
 
-using OMPEval_jll
-const lib = dlopen("libOMPEval")
+register(DataDep("PokerHandRanks",
+        """
+        Poker Hand Ranks LUT
+        """,
+        "https://github.com/christophschmalhofer/poker/raw/master/XPokerEval/XPokerEval.TwoPlusTwo/HandRanks.dat",
+        "ad00f3976ad278f2cfd8c47b008cf4dbdefac642d70755a9f20707f8bbeb3c7e"
+    ))
 
-const eval5CardFunc = dlsym(lib, "evaluate_5c")
-const eval7CardFunc = dlsym(lib, "evaluate_7c")
 
-function eval5Card(c1, c2, c3, c4, c5)
-    return ccall(eval5CardFunc, UInt16, (UInt8,UInt8,UInt8,UInt8,UInt8), c1 - 1, c2 - 1, c3 - 1, c4 - 1, c5 - 1)
+function loadHandRanks()
+    handRanks = Vector{Int32}(undef, 32487834);
+    read!(datadep"PokerHandRanks/HandRanks.dat", handRanks)
+    return handRanks
 end
 
-println(eval5Card([52,49,1,2,3]...))
+const handRanks = loadHandRanks()
+
+function evaluate7c(hr,c1,c2,c3,c4,c5,c6,c7)
+    p = hr[53 + c1 + 1]
+    p = hr[p + c2 + 1]
+    p = hr[p + c3 + 1]
+    p = hr[p + c4 + 1]
+    p = hr[p + c5 + 1]
+    p = hr[p + c6 + 1]
+    p = hr[p + c7 + 1]
+    return p
+end
+
+function evaluate5c(hr,c1,c2,c3,c4,c5)
+    p = hr[53 + c1 + 1]
+    p = hr[p + c2 + 1]
+    p = hr[p + c3 + 1]
+    p = hr[p + c4 + 1]
+    p = hr[p + c5 + 1]
+    return hr[p + 1]
+end
 
 end
