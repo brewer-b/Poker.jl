@@ -28,6 +28,4 @@ Base.show(io::IO, cards::Vector{Card}) = [print(card) for card in cards]
 Base.:+(x::Integer, card::Card) = x + UInt64(card.value)
 Base.:+(card::Card, x::Integer) = Base.:+(x::Integer, card::Card)
 
-println([Card(3),Card(4)])
-
 end

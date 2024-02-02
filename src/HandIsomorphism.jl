@@ -35,7 +35,7 @@ end
 
 function indexLast(handIndexer::HandIndexer, cards::Vector{Card})
     u8Cards = UInt8[card.value - 1 for card in cards]
-    return ccall(indexFunc, UInt64, (Ptr{Cvoid}, Ptr{UInt8}), handIndexer.indexer, u8Cards)
+    return ccall(indexFunc, UInt64, (Ptr{Cvoid}, Ptr{UInt8}), handIndexer.indexer, u8Cards) + 1
 end
 
 function unindex(handIndexer::HandIndexer, round::Integer, index::Integer)

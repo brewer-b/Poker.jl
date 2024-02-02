@@ -1,6 +1,6 @@
 module PokerHandEvaluator
 
-export handRanks, evaluate5c, evaluate7c
+export handRanks, evaluate5c, evaluate7c, evaluatePartial
 
 using ..PokerCard
 using DataDeps
@@ -45,5 +45,9 @@ function evaluate5c(hr,c1,c2,c3,c4,c5)
 end
 
 evaluate5c(c1,c2,c3,c4,c5) = evaluate5c(handRanks,c1,c2,c3,c4,c5)
+
+function evaluatePartial(card,p=53)
+    return hr[p + card + 1]
+end
 
 end
