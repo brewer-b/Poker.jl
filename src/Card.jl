@@ -1,31 +1,33 @@
 module PokerCard
 
-export Card
-
-struct Card
-    value::UInt8
-    function Card(value::Integer)
-        @assert(value >= 1 && value <= 52)
-        return new(UInt8(value))
-    end
-end
+export Card, validCard
 
 const ranks = "23456789TJQKA"
 const suits = "cdhs"
+
+primitive type Card <: Integer 8 end
+
+Card(card::Integer) = reinterpret(Card, UInt8(card))
+Core.UInt8(card::Card) = reinterpret(UInt8, card)
+Core.UInt64(card::Card) = UInt64(UInt8(card))
 
 function Card(card::String)
     @assert(length(card) == 2)
     rank = findfirst(card[1], ranks)
     suit = findfirst(card[2], suits)
     @assert(!isnothing(rank) && !isnothing(suit))
-    value = ((rank - 1) * 4) + (suit - 1) + 1
+    value = (rank * 4) + suit
     return Card(value)
 end
 
-Base.:string(card::Card) = string(ranks[(card.value - 1) ÷ 4 + 1], suits[(card.value - 1) % 4 + 1])
+validCard(card::Card) = card >= 0 && card <= 51
+
+Base.:+(x::Integer, card::Card) = x + UInt64(card)
+Base.:+(card::Card, x::Integer) = Base.:+(x::Integer, card::Card)
+Base.:-(x::Integer, card::Card) = x - UInt64(card)
+Base.:-(card::Card, x::Integer) = UInt64(card) - x
+Base.:string(card::Card) = string(ranks[UInt64(card) ÷ 4 + 1], suits[UInt64(card) % 4 + 1])
 Base.show(io::IO, card::Card) = print(string(card))
 Base.show(io::IO, cards::Vector{Card}) = [print(card) for card in cards]
-Base.:+(x::Integer, card::Card) = x + UInt64(card.value)
-Base.:+(card::Card, x::Integer) = Base.:+(x::Integer, card::Card)
 
 end
