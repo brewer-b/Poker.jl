@@ -43,7 +43,7 @@ function unindex(handIndexer::HandIndexer, round::Integer, index::Integer)
     return output
 end
 
-function unindex(handIndexer::HandIndexer, round::Integer, index::Integer, output::Vector{Card})
+function unindex(handIndexer::HandIndexer, round::Integer, index::Integer, output::AbstractVector{Card})
     ccall(unindexFunc, Cvoid, (Ptr{Cvoid}, Cint, UInt64, Ptr{UInt8}), handIndexer.indexer, round - 1, index - 1, output)
     return output
 end

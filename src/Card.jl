@@ -28,6 +28,6 @@ Base.:-(x::Integer, card::Card) = x - UInt64(card)
 Base.:-(card::Card, x::Integer) = UInt64(card) - x
 Base.:string(card::Card) = string(ranks[UInt64(card) ÷ 4 + 1], suits[UInt64(card) % 4 + 1])
 Base.show(io::IO, card::Card) = print(string(card))
-Base.show(io::IO, cards::Vector{Card}) = [print(card) for card in cards]
+Base.show(io::IO, cards::AbstractVector{Card}) = [print(card) for card in cards]
 
 end
