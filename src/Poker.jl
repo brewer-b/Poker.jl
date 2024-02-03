@@ -4,6 +4,6 @@ module Poker
 include("Card.jl")
 include("HandEvaluator.jl")
 include("HandIsomorphism.jl")
-#include("HoldemHand.jl")
+include("HoldemHand.jl")
 
 end

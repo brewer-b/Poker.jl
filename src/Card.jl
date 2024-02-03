@@ -10,6 +10,7 @@ primitive type Card <: Integer 8 end
 Card(card::Integer) = reinterpret(Card, UInt8(card))
 Core.UInt8(card::Card) = reinterpret(UInt8, card)
 Core.UInt64(card::Card) = UInt64(UInt8(card))
+Core.Int64(card::Card) = Int64(UInt8(card))
 
 function Card(card::String)
     @assert(length(card) == 2)
