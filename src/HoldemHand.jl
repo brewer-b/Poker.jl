@@ -1,6 +1,6 @@
 module PokerHoldemHand
 
-export Hand
+export handFromIndex, indexFromHand, blockedIndexesFromCard
 
 using ..PokerCard
 
@@ -27,6 +27,6 @@ const allHands, handToIndexTable, cardToBlockedHandsTable = getAllHands()
 
 handFromIndex(index) = @view allHands[:,index]
 indexFromHand(hand::AbstractVector{Card}) = handToIndexTable[hand[1] + 1, hand[2] + 1]
-blockedHandsFromCard(card::Card) = cardToBlockedHandsTable[card + 1]
+blockedIndexesFromCard(card::Card) = cardToBlockedHandsTable[card + 1]
 
 end
