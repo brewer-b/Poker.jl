@@ -9,6 +9,7 @@ Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
 PokerIsomorphism_jll = "133beed6-7c83-59bf-b8b3-f5e6e5f3f679"
 
 [compat]
+DataDeps = "0.7"
 julia = "1"
 
 [extras]
